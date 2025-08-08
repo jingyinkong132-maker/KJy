@@ -1,0 +1,41 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Administrator\\Desktop\\float-score\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A651A281-CDC0-475F-8F2E-32AEB210E393}|float-score\\float-score.vcxproj|C:\\Users\\Administrator\\Desktop\\float-score\\float-score\\float-score.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A651A281-CDC0-475F-8F2E-32AEB210E393}|float-score\\float-score.vcxproj|solutionrelative:float-score\\float-score.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "float-score.cpp",
+              "DocumentMoniker": "C:\\Users\\Administrator\\Desktop\\float-score\\float-score\\float-score.cpp",
+              "RelativeDocumentMoniker": "float-score\\float-score.cpp",
+              "ToolTip": "C:\\Users\\Administrator\\Desktop\\float-score\\float-score\\float-score.cpp",
+              "RelativeToolTip": "float-score\\float-score.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-08-08T12:25:23.039Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

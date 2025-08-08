@@ -1,0 +1,4 @@
+﻿  float-score.cpp
+C:\Users\Administrator\Desktop\float-score\float-score\float-score.cpp(12,13): warning C4305: “初始化”: 从“double”到“float”截断
+C:\Users\Administrator\Desktop\float-score\float-score\float-score.cpp(12,23): warning C4305: “初始化”: 从“double”到“float”截断
+  float-score.vcxproj -> C:\Users\Administrator\Desktop\float-score\x64\Debug\float-score.exe
