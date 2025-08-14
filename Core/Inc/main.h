@@ -63,7 +63,8 @@ void Error_Handler(void);
 #define BEEP_GPIO_Port GPIOA
 
 /* USER CODE BEGIN Private defines */
-
+extern uint8_t u1_rx_data_temp;
+extern uint8_t buff[9]={0};
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

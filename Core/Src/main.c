@@ -18,7 +18,9 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "dma.h"
 #include "tim.h"
+#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -46,17 +48,51 @@
 
 /* USER CODE BEGIN PV */
 
+#define SINE_WAVE_POINTS 100
+#define SEND_INTERVAL 10  
+float sineWave[SINE_WAVE_POINTS];
+
+
+#define RING_BUFFER_SIZE 256
+typedef struct {
+    uint8_t buffer[RING_BUFFER_SIZE];
+    uint16_t head;
+    uint16_t tail;
+    uint16_t count;
+} RingBuffer;
+
+RingBuffer uartRingBuffer;
+uint8_t uartRxBuffer[64]; 
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
+void generateSineWave(void);
+void sendSineWaveToVOFA(void);
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 int step=0;
+void generateSineWave(void) {
+    for(int i = 0; i < SINE_WAVE_POINTS; i++) {
+        sineWave[i] = sinf(2 * 3.1415926f * i / SINE_WAVE_POINTS);
+    }
+}
+
+
+void sendSineWaveToVOFA(void) {
+    static uint16_t index = 0;
+    uint8_t header[4] = {0xAF, 0xFA, 0x04, 0x00}; // ???(4????)
+   
+    HAL_UART_Transmit(&huart1, header, 4, HAL_MAX_DELAY);
+
+    HAL_UART_Transmit(&huart1, (uint8_t*)&sineWave[index], 4, HAL_MAX_DELAY);
+    
+    index = (index + 1) % SINE_WAVE_POINTS;
+}
 /* USER CODE END 0 */
 
 /**
@@ -88,27 +124,29 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_TIM1_Init();
   MX_TIM3_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 	BEEP_Setup();
-	
-  /* USER CODE END 2 */
+	HAL_UART_Receive_DMA(&huart1,&u1_rx_data_temp,1);
+  generateSineWave();
+	/* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+		HAL_Delay(1500);
     /* USER CODE END WHILE */
-		for(int i = 0; i < 1000; i += 10) {
-      __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, i);
-      HAL_Delay(50);
+		static uint32_t lastSend = 0;
+    if(HAL_GetTick() - lastSend >= SEND_INTERVAL) {
+        sendSineWaveToVOFA();
+        lastSend = HAL_GetTick();
     }
-    for (int i = 1000; i >= 0; i -= 10) {
-        __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, i);
-        HAL_Delay(50); 
-    }
-		HAL_Delay(200);
+    
+    HAL_Delay(1);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
